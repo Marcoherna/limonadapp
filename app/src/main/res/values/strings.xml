@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Limonada</string>
+    <string name="lemon_tree">Presione el árbol de limones para seleccionar un limón.</string>
+    <string name="lemon">"Golpee el limón para explimirlo. "</string>
+    <string name="glass_of_limonade">Presione la limonada para beberla.</string>
+    <string name="empty_glass">Presione el vaso vacío para volver a iniciar.</string>
+</resources>
