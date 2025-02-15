@@ -18,6 +18,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +40,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LimonadaTheme {
-
+                LimonadaApp()
             }
         }
     }
@@ -44,6 +48,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LimonadaApp(){
+    LimonadaHeader()
     LimonadaImageAndText(
         modifier = Modifier
             .fillMaxSize()
@@ -51,25 +56,46 @@ fun LimonadaApp(){
 }
 
 @Composable
-fun LimonadaImageAndText(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(R.string.app_name),
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Yellow)
-            .padding(top = 50.dp, bottom = 25.dp),
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.Bold,
-        fontSize = 25.sp,
+fun LimonadaImageAndText(modifier: Modifier = Modifier) { // Función para
+    var result by remember { mutableIntStateOf(1) }
+    var imageResource = R.drawable.lemon_tree
+    var textResource = stringResource(R.string.lemon_tree)
 
-        )
+    when (result) {
+        2 -> {
+            imageResource = R.drawable.lemon_squeeze
+            textResource = stringResource(R.string.lemon)
+        }
+        3 -> {
+            imageResource = R.drawable.lemon_squeeze
+            textResource = stringResource(R.string.lemon)
+        }
+        4 -> {
+            imageResource = R.drawable.lemon_squeeze
+            textResource = stringResource(R.string.lemon)
+        }
+        5 -> {
+            imageResource = R.drawable.lemon_drink
+            textResource = stringResource(R.string.glass_of_limonade)
+        }
+        6 -> {
+            imageResource = R.drawable.lemon_restart
+            textResource = stringResource(R.string.empty_glass)
+        }
+        7 -> {
+            result = 1
+            imageResource = R.drawable.lemon_tree
+            textResource = stringResource(R.string.lemon_tree)
+        }
+    }
+
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Button(
-            onClick = {},
+            onClick = { result++ },
             shape = RoundedCornerShape(
                 topStart = 50.dp,
                 topEnd = 50.dp,
@@ -82,19 +108,35 @@ fun LimonadaImageAndText(modifier: Modifier = Modifier) {
 
 
         ) {
+
             Image(
-                painter = painterResource(id = R.drawable.lemon_tree),
+                painter = painterResource(imageResource),
                 contentDescription = null
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(R.string.lemon_tree),
+            text = textResource,
             fontSize = 18.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(start = 20.dp, end = 20.dp)
         )
     }
+}
+
+@Composable
+fun LimonadaHeader() {
+    Text(
+        text = stringResource(R.string.app_name),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Yellow)
+            .padding(top = 50.dp, bottom = 25.dp),
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold,
+        fontSize = 25.sp,
+
+        )
 }
 
 @Preview(showBackground = true)
@@ -104,3 +146,4 @@ fun LimonadaappPreview() {
         LimonadaApp()
     }
 }
+
